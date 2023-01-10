@@ -15,6 +15,7 @@ class BinaryHeap(object):
             i = parent
             parent = i // 2
     
+    # insert() corresponds to heapq.heappush() in Python
     def insert(self, k):
         self.items.append(k)
         self._percolate_up()
@@ -34,6 +35,7 @@ class BinaryHeap(object):
             self._percolate_down(smallest)
     
     # Extract the minimum item from min-heap. Thus, the root node is extracted.
+    # extract() corresponds to heapq.heappop() in Python
     def extract(self):
         extracted = self.items[1]
         self.items[1] = self.items[len(self)]
