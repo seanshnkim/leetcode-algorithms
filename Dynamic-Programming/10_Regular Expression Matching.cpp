@@ -16,7 +16,8 @@ public:
             }
             else if (p[p_it] == '*') {
                 if (p[p_it-1] == '.') {
-                    return true;
+                    // return true;
+                    s_it = s.size();
                 }
                 else {
                     while (s[s_it] == p[p_it-1]) {
@@ -32,7 +33,8 @@ public:
                     s_it++;
                 }
                 else {
-                    return false;
+                    // return false;
+                    p_it++;
                 }
             }
         }
@@ -48,9 +50,10 @@ public:
 
 int main() {
     Solution sol;
-    cout << sol.isMatch("aa", "a") << endl;
-    cout << sol.isMatch("aa", "a*") << endl;
-    cout << sol.isMatch("ab", ".*") << endl;
-    cout << sol.isMatch("abcceeeegddii", "ab.ce*.dd.*") << endl;
+    cout << sol.isMatch("aab", "c*a*b") << endl;
+    cout << sol.isMatch("ab", ".*c") << endl;
+    // cout << sol.isMatch("aa", "a*") << endl;
+    // cout << sol.isMatch("ab", ".*") << endl;
+    // cout << sol.isMatch("abcceeeegddii", "ab.ce*.dd.*") << endl;
     return 0;
 }
