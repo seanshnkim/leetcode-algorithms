@@ -1,6 +1,7 @@
 from typing import List
 
 # bad code
+'''
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         sorted_intervals = sorted(intervals, key=lambda x: x[0])
@@ -14,7 +15,7 @@ class Solution:
                 else:
                     break
         return sorted_intervals
-
+'''
 
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
