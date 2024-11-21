@@ -7,30 +7,22 @@ using namespace std;
 class Solution {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-        int N = gas.size();
-        int start_idx = -1;
-        for (int i = 0; i < N; i++) {
-            start_idx = rotate(i, gas, cost);
-            if (start_idx != -1) {
-                return start_idx;
+        int currGain = 0, totalGain = 0, answer = 0;
+
+        for (int i = 0; i < gas.size(); ++i) {
+            // gain[i] = gas[i] - cost[i]
+            totalGain += gas[i] - cost[i];
+            currGain += gas[i] - cost[i];
+
+            // If we meet a "valley", start over from the next station
+            // with 0 initial gas.
+            if (currGain < 0) {
+                answer = i + 1;
+                currGain = 0;
             }
         }
-        return start_idx;
-    }
-private:
-    int rotate(int idx, vector<int>& gas, vector<int>& cost) {
-        int rem_gas = gas[idx];
-        int N = gas.size();
-        
-        for (int j=0; j < N; j++) {
-            if (rem_gas >= cost[(idx+j)%N]) {
-                rem_gas += gas[(idx+j+1)%N] - cost[(idx+j)%N];
-            }
-            else {
-                return -1;
-            }
-        }
-        return idx;
+
+        return totalGain >= 0 ? answer : -1;
     }
 };
 
