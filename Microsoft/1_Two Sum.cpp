@@ -1,42 +1,37 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <unordered_map>
+#include <iostream>
 
 using namespace std;
 
 class Solution {
 public:
-    struct CompareFirst {
-        bool operator()(const pair<int, int>& value, int key) {
-            return value.first < key;
+    vector<int> twoSum(vector<int> &nums, int target) {
+        unordered_map<int, int> hash;
+        for (int i = 0; i < nums.size(); i++) {
+            hash[nums[i]] = i;
         }
-        bool operator()(int key, const pair<int, int>& value) {
-            return key < value.first;
-        }
-    };
-    
-    vector<int> twoSum(vector<int>& nums, int target) {
-        vector<pair<int, int>> diffs;
-        for (int i=0; i < nums.size(); ++i) {
-            diffs.push_back({target - nums[i], i});
-        }
-        sort(diffs.begin(), diffs.end());
-        vector<int> ans = {-1, -1};
-        
-        for (int i=0; i < nums.size(); ++i) {
-            if ( binary_search(diffs.begin(), diffs.end(), nums[i], CompareFirst()) ) {
-                auto found = lower_bound(diffs.begin(), diffs.end(), nums[i], CompareFirst());
-                if (found != diffs.end() && found->first == nums[i] && found->second != i) {
-                    ans[0] = i;
-                    ans[1] = found->second;
-                    break;
-                }
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
+            if (hash.find(complement) != hash.end() && hash[complement] != i) {
+                return {i, hash[complement]};
             }
         }
-        return ans;
+        // If no valid pair is found, return an empty vector
+        return {};
     }
 };
 
 int main() {
+    Solution sol;
+    vector<int> nums = {2,7,11,15};
+    int target = 9;
+    // cout << sol.twoSum(nums, target) << endl;
+    for (const auto &num : sol.twoSum(nums, target)) {
+        cout << num << " ";
+    }
+    cout << endl;
     return 0;
 }
