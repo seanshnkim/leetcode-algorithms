@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include <queue>
 #include <iostream>
 
 using namespace std;
@@ -12,16 +13,17 @@ public:
         int N = intervals.size();
 
         int cnt = 1;
-        int earliest_end = intervals[0][1];
+        priority_queue<int, vector<int>, greater<int>> pq;
+        pq.push(intervals[0][1]);
 
         for (int i=1; i < N; i++) {
-            if (intervals[i][0] < earliest_end) {
+            if (intervals[i][0] < pq.top()) {
                 cnt++;
-                earliest_end = min(earliest_end, intervals[i][1]);
             }
             else {
-                earliest_end = intervals[i][1];
+                pq.pop();
             }
+            pq.push(intervals[i][1]);
         }
         return cnt;
     }
