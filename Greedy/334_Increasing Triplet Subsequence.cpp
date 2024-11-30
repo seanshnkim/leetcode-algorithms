@@ -7,28 +7,16 @@ using namespace std;
 class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
-        int N = nums.size();
-        if (N < 3) {return false;}
-
-        bool second_exists = false;
-        int min = nums[0];
-        int second = INT_MAX;
-
-        for (int i=1; i < N; i++) {
-            if (nums[i] < min) {
-                min = nums[i];
-            }
-            else if (nums[i] > min) {
-                if (second_exists && nums[i] > second) {
-                    return true;
-                }
-                second_exists = true;
-                if (nums[i] < second) {
-                    second = nums[i];
-                }
-            }
-            else {
-                continue;
+        int first_num = INT_MAX;
+        int second_num = INT_MAX;
+        
+        for (int n : nums) {
+            if (n <= first_num) {
+                first_num = n;
+            } else if (n <= second_num) {
+                second_num = n;
+            } else {
+                return true;
             }
         }
         return false;
