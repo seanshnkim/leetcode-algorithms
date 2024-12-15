@@ -25,8 +25,7 @@ public:
         if (!isBalanced(root->left) || !isBalanced(root->right)) {
             return false;
         }
-        int diff = dfs(root->left, 1) - dfs(root->right, 1);
-        return (-1 <= diff && diff <= 1);
+        return abs(dfs(root->left, 1) - dfs(root->right, 1)) <= 1;
     }
 
     int dfs(TreeNode* root, int depth) {
